@@ -1,11 +1,22 @@
-.PHONY:all
-include_path = ../include
-objects = ../out/source
-source = $(patsubst %.c,$(objects)/%.o,$(wildcard *.c))
-includes=$(wildcard $(include_path)/*.h)
-all:$(source) 
+.PHONY=all
+.DEFAULT_GOAL=all
+all: C C++
+	
+C: 
+	@echo "-===============================-"
+	@echo "-=====Generating C Objects======-"
+	@echo "-===============================-"
+	#$(MAKE) -C ./c/
+C++:
+	@echo "-===============================-"
+	@echo "-=====Generating C++ Object=====-"
+	@echo "-===============================-"
+	$(MAKE) -C ./c++/
 
-$(objects)/%.o:%.c $(includes)
-	gcc -c $(CFLAGS) $< -o $@ -I $(include_path)
+
 clean:
-	-rm $(objects)/*.o
+	@echo "-===============================-"
+	@echo "-===========CLEANING============-"
+	@echo "-===============================-"
+	$(MAKE) $@ -C ./c/
+	$(MAKE) $@ -C ./c++/
